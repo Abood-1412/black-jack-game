@@ -1,64 +1,151 @@
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background: #0f1724;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+*{
+    margin: 0;
+    padding: 0;
 }
-.container {
-  display: grid;
-  grid-template-columns: 1fr 250px;
-  gap: 20px;
-  width: 90%;
-  max-width: 1000px;
+
+html{
+    font-size: 62.5%;
+    /* 10px and default 1rem=16px */
 }
-.board, .sidebar {
-  background: rgba(255,255,255,0.05);
-  padding: 20px;
-  border-radius: 10px;
+
+.title{
+    text-align: center;
+    background: rgb(232,224,117);
+    background: linear-gradient(0deg, rgba(232,224,117,1) 0%, rgba(1,1,1,1) 15%);
+    color: gold;
+    font-family: 'Pushster', cursive;
+    padding: .5rem;
+    font-size: 8rem;
+    word-spacing: 2rem;
+    letter-spacing: .3rem;
 }
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+#command {
+    font-family: 'Vujahday Script', cursive;
+    font-weight: 800;
+    font-size: 3.5rem;
+    word-spacing: 1rem;
+    animation: blinker 2s step-start infinite;
 }
-.logo {
-  background: green;
-  padding: 10px;
-  border-radius: 5px;
+@keyframes blinker {
+    25% {
+      opacity: 0;
+    }
 }
-.lane {
-  margin-top: 20px;
-  background: rgba(255,255,255,0.1);
-  padding: 10px;
-  border-radius: 5px;
+
+.main{
+    margin: auto;
+    text-align: center;
 }
-.cards {
-  display: flex;
-  gap: 10px;
+
+.row1{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+    border-bottom: black solid .1rem;
+    height: 50rem;
 }
-.card {
-  width: 60px;
-  height: 90px;
-  background: white;
-  color: black;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+
+.row1 ,.row2{
+    background: url('./static/table.jpg') no-repeat center center/cover;
+    width: auto;
+    color: whitesmoke;
 }
-.controls {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
+
+.row1 div{
+    padding: 1rem;
+    text-align: center;
+    flex: 1;
 }
-button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+
+.row1 h2{
+    font-family: 'Lobster', cursive;
+    font-size: 4rem;
+}
+
+#your-box{
+    border-right: black solid 1px;
+}
+
+#your-box img, #dealer-box img{
+    height: 20rem;
+    width: 13rem;
+    padding: 1rem;
+}
+
+.row2{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 3rem;
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 55%;
+}
+
+.buttons button{
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: 'Lobster', cursive;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+    margin: 1.5rem;
+}
+#reset {
+    color: green#1e90ff; /* Dodger Blue */
+    border: 2px solid green;
+    border-radius: 6px;
+}
+
+#reset:hover {
+    background-color: #1e90ff;
+    color: white;
+    box-shadow: 0 0 8px #1e90ff;
+}
+.buttons button:hover{
+    cursor: pointer;
+    box-shadow: black 0px 0px 5px 2px;
+}
+
+.row3 h3{
+    font-family: 'Teko', sans-serif;
+    font-size: 4rem;
+}
+
+.row3{
+    margin: auto;
+}
+
+table, th, td{
+    padding: .5rem;
+    border: solid 2px black;
+    font-size: 3rem;
+    font-family: 'Teko', sans-serif;
+    font-weight: 400;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+table{
+    margin: auto;
+    margin-bottom: 5rem;
+}
+
+@media screen and (max-width:740px){
+    html{
+        font-size: 40%;
+    }
+}
+@media screen and (max-width:420px){
+    html{
+        font-size: 30%;
+    }
 }

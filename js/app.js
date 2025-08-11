@@ -52,6 +52,32 @@ function dealinisialCards() {
     playerScore = calculateScore(playerHand);
     dealerScore = calculateScore(dealerHand);
 }
+//4. calculatehandValue function
+
+function calculatehandValue(hand) {
+    let score = 0;
+    let acesCount = 0;
+
+    for (const card of hand) {
+        if (card.value === 'A') {
+            acesCount++;
+            score += 11; // Initially counting Ace as 11
+        } else if (['K', 'Q', 'J'].includes(card.value)) {
+            score += 10; // Face cards are worth 10
+        } else {
+            score += parseInt(card.value); // Number cards are worth their value
+        }
+    }
+
+    // Adjust for Aces if score exceeds 21
+    while (score > 21 && acesCount > 0) {
+        score -= 10; // Count Ace as 1 instead of 11
+        acesCount--;
+    }
+
+    return score;
+}
+
 /*document.addEventListener('DOMContentLoaded', () => {
   game.ui.playerCardsEl = document.getElementById('player-cards');
   game.ui.dealerCardsEl = document.getElementById('dealer-cards');

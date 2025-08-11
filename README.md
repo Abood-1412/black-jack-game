@@ -16,11 +16,15 @@ This project demonstrates how to build a simple Blackjack game using HTML, CSS, 
 - **CSS**: Styles the game board, cards, and buttons for a visually appealing experience.
 - **JavaScript**: Handles game logic, user interactions, and updates the UI dynamically.
 
+## Drawn Design
+
+![alt text](image.png)
+
 ## Getting Started
 
 1. Clone the repository.
 2. Open `index.html` in your browser.
-3. Play the game and try to beat the dealer!
+3. Play the game and try to beat the dealer!v
 
 ## How It Works
 
