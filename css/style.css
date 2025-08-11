@@ -99,17 +99,7 @@ html{
     padding-bottom: .2rem;
     margin: 1.5rem;
 }
-#reset {
-    color: green#1e90ff; /* Dodger Blue */
-    border: 2px solid green;
-    border-radius: 6px;
-}
 
-#reset:hover {
-    background-color: #1e90ff;
-    color: white;
-    box-shadow: 0 0 8px #1e90ff;
-}
 .buttons button:hover{
     cursor: pointer;
     box-shadow: black 0px 0px 5px 2px;
