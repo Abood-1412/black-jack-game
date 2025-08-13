@@ -1,118 +1,70 @@
-// cards suits and values
-const suits = ['♠', '♥', '♦', '♣'];
-const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+/*----------------- Blackjack Game -----------------*/
+/*-----------------Variables-----------------*/
 
 let deck = [];
-
 let playerHand = [];
 let dealerHand = [];
-
 let playerScore = 0;
 let dealerScore = 0;
+let wins = 0;
+let losses = 0;
+let draws = 0;
+let gameOver = false;
 
-let isGameOver = false;
-let playerStand = false;
-let winner = null;
-
-let playerCardsEl;
-let dealerCardsEl;
-let playerScoreEl;
-let dealerScoreEl;
-let messageEl;
-let hitBtn;
-let standBtn;
-let newGameBtn;
-
-
-//1. createDeck function
-
+/* -------------- Helper Functions -------------- */
+// function to create and loop over the deck of cards
 function createDeck() {
-  deck = [];
-  for (let i = 0; i < suits.length; i++) {
-    for (let j = 0; j < values.length; j++) {
-      deck.push({ suit: suits[i], value: values[j] });
+   const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+   const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
+   deck = [];
+    for (let suit of suits) {
+        for (let value of values) {
+            deck.push({ suit, value });
+        }
     }
+    shuffleDeck();
+
+}
+// Function to shuffle the deck( Fisher–Yates algorithm )
+function shuffleDeck(deck) {
+  for (let i = deck.length - 1; i > 0; i--) {
+    // pickes a random index from 0 to i
+    const j = Math.floor(Math.random() * (i + 1));
+    // swaps the elements at i and j
+    [deck[i], deck[j]] = [deck[j], deck[i]];
   }
 }
-//2. shuffleDeck function
 
-function shuffleDeck(deck) {
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-    return deck;
-
-}
-//3. dealinisialCards function
-
-function dealinisialCards() {
+function dealinitialCards() {
     playerHand = [deck.pop(), deck.pop()];
     dealerHand = [deck.pop(), deck.pop()];
     playerScore = calculateScore(playerHand);
     dealerScore = calculateScore(dealerHand);
+   // updateScores();
+    //renderHands();
+    //checkForBlackjack();
 }
-//4. calculatehandValue function
 
 function calculatehandValue(hand) {
-    let score = 0;
-    let acesCount = 0;
-
-    for (const card of hand) {
-        if (card.value === 'A') {
-            acesCount++;
-            score += 11; // Initially counting Ace as 11
-        } else if (['K', 'Q', 'J'].includes(card.value)) {
-            score += 10; // Face cards are worth 10
-        } else {
-            score += parseInt(card.value); // Number cards are worth their value
-        }
+  let value = 0;
+  let aces = 0;
+  let card = null;
+  for (card of hand) {
+    if (card.value === 'Jack' || card.value === 'Queen' || card.value === 'King') {
+      value += 10; 
     }
-
-    // Adjust for Aces if score exceeds 21
-    while (score > 21 && acesCount > 0) {
-        score -= 10; // Count Ace as 1 instead of 11
-        acesCount--;
+    else if (card.value === 'Ace') {
+      value += 11;
+      aces += 1;
     }
-
-    return score;
-}
-
-/*document.addEventListener('DOMContentLoaded', () => {
-  game.ui.playerCardsEl = document.getElementById('player-cards');
-  game.ui.dealerCardsEl = document.getElementById('dealer-cards');
-  game.ui.playerScoreEl = document.getElementById('player-score');
-  game.ui.dealerScoreEl = document.getElementById('dealer-score');
-  game.ui.messageEl = document.getElementById('message');
-  game.ui.hitBtn = document.getElementById('hit-btn');
-  game.ui.standBtn = document.getElementById('stand-btn');
-  game.ui.newGameBtn = document.getElementById('new-game-btn');
-
-  game.ui.hitBtn.addEventListener('click', () => {
-    if (!game.isGameOver) {
-      hit();
-    }
-  });
-
-  game.ui.standBtn.addEventListener('click', () => {
-    if (!game.isGameOver) {
-      stand();
-    }
-  });
-
-  game.ui.newGameBtn.addEventListener('click', () => {
-    startNewGame();
-  });
-
-  startNewGame();
-});
-
-function createDeck() {
-  game.deck = [];
-  for (const suit of game.suits) {
-    for (const value of game.values) {
-      game.deck.push({ suit, value });
+    else {
+      value += parseInt(card.value);
     }
   }
+  while (value > 21 && aces > 0) {
+    value -= 10; // convert the vslue of an Ace from 11 to 1
+    aces -= 1;
+  }
+  return value;
 }
-*/
+
