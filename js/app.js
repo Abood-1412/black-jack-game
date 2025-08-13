@@ -79,3 +79,38 @@ function updateScores() {
 function playerHit() {
   if (gameOver) return; // prevent hitting if the game ended
 }
+
+/* Remaining functions:
+
+f) playerHit()
+
+    Player draws one card (pop deck, push to playerHand)
+
+    Update score and UI
+
+    Check if player busts (score > 21) → end round with loss
+
+g) playerStand()
+
+    Player ends turn; dealer’s turn begins
+
+    Dealer draws cards according to blackjack rules (hit until score ≥ 17)
+
+    Update UI after each dealer draw
+
+    Determine winner and update scoreboard
+
+h) determineWinner()
+
+    Compare playerScore and dealerScore, considering busts
+
+    Update wins/losses/draws counters and display in table
+
+    Update command span with game result message
+
+i) resetGame()
+
+    Reset all variables and UI to initial state
+
+    Ready for new round.
+*/
