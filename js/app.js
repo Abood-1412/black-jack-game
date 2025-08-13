@@ -36,8 +36,8 @@ function shuffleDeck(deck) {
 }
 
 function dealinitialCards() {
-    playerHand = [deck.pop(), deck.pop()];
-    dealerHand = [deck.pop(), deck.pop()];
+    playerHand = [deck.pop(), deck.pop()]; // Dealing 2 cards to the player
+    dealerHand = [deck.pop(), deck.pop()]; // Dealing 2 cards to the dealer
     playerScore = calculateScore(playerHand);
     dealerScore = calculateScore(dealerHand);
    // updateScores();
@@ -46,6 +46,7 @@ function dealinitialCards() {
 }
 
 function calculatehandValue(hand) {
+  // Creating variable to hold the value of the hand
   let value = 0;
   let aces = 0;
   let card = null;
@@ -68,3 +69,13 @@ function calculatehandValue(hand) {
   return value;
 }
 
+function updateScores() {
+  document.getElementById('myScore').textContent = playerScore;
+  document.getElementById('dealerscore').textContent = dealerScore;
+  // optional effect is to update the displayed cards
+
+}
+
+function playerHit() {
+  if (gameOver) return; // prevent hitting if the game ended
+}
