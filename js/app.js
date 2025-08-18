@@ -1,3 +1,5 @@
+
+
 // Card and deck setup
 const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
@@ -17,8 +19,8 @@ const commandDisplay = document.getElementById('command');
 const winsDisplay = document.getElementById('wins');
 const lossesDisplay = document.getElementById('losses');
 const drawsDisplay = document.getElementById('draws');
-
-/*---------------Functions---------------*/
+const yourBox = document.getElementById('your-box');
+const dealerBox = document.getElementById('dealer-box');
 
 // Initialize the game
 function initGame() {
@@ -30,6 +32,8 @@ function initGame() {
     yourScoreDisplay.textContent = playerScore;
     dealerScoreDisplay.textContent = dealerScore;
     commandDisplay.textContent = "Let's Play";
+    yourBox.querySelectorAll('img').forEach(img => img.remove());
+    dealerBox.querySelectorAll('img').forEach(img => img.remove());
     document.getElementById('hit').disabled = false;
     document.getElementById('stand').disabled = false;
     document.getElementById('deal').disabled = false;
@@ -37,7 +41,7 @@ function initGame() {
 
 // Create a deck of cards
 function createDeck() {
-    
+    const deck = [];
     for (let suit of suits) {
         for (let value of values) {
             deck.push({ suit, value });
@@ -54,18 +58,46 @@ function shuffle(deck) {
     }
     return deck;
 }
-// Return the correct image path for a given card
-function getCardImage(card) {
-    // Example: card = { value: "K", suit: "H" } → ./static/KH.png
-    return `./static/${card.value}${card.suit}.png`;
-}
 
 // Deal initial cards
 function deal() {
     initGame();
     playerHand.push(deck.pop(), deck.pop());
     dealerHand.push(deck.pop(), deck.pop());
+    showCards(); // Show cards immediately after dealing
     updateScores();
+}
+
+// Show card images
+function showCards() {
+    yourBox.querySelectorAll('img').forEach(img => img.remove());
+    dealerBox.querySelectorAll('img').forEach(img => img.remove());
+
+    for (let card of playerHand) {
+        const img = document.createElement('img');
+        img.src = getCardImage(card); // Get the correct image path
+        yourBox.appendChild(img);
+    }
+    for (let card of dealerHand) {
+        const img = document.createElement('img');
+        img.src = getCardImage(card); // Get the correct image path
+        dealerBox.appendChild(img);
+    }
+}
+
+// Get the correct image path for a given card
+function getCardImage(card) {
+    // Map suit names to initials for file naming
+    const suitMapping = {
+        'Hearts': 'H',
+        'Diamonds': 'D',
+        'Clubs': 'C',
+        'Spades': 'S'
+    };
+
+    // Construct the card identifier (e.g., '2C', 'AH')
+    const suitInitial = suitMapping[card.suit]; // Get the suit initial
+    return `./static/${card.value}${suitInitial}.png`; // Return the path to the image
 }
 
 // Update scores and display
@@ -96,7 +128,7 @@ function calculateScore(hand) {
     for (let card of hand) {
         if (card.value === 'A') {
             aces++;
-            score += 11; // Initially count Ace as 11
+            score += 11;
         } else if (['K', 'Q', 'J'].includes(card.value)) {
             score += 10;
         } else {
@@ -104,7 +136,6 @@ function calculateScore(hand) {
         }
     }
 
-    // Adjust for Aces
     while (score > 21 && aces) {
         score -= 10;
         aces--;
@@ -115,8 +146,11 @@ function calculateScore(hand) {
 
 // Hit function
 function hit() {
-    playerHand.push(deck.pop());
-    updateScores();
+    if (playerScore < 21) {
+        playerHand.push(deck.pop());
+        showCards();
+        updateScores();
+    }
 }
 
 // Stand function
@@ -124,6 +158,7 @@ function stand() {
     while (dealerScore < 17) {
         dealerHand.push(deck.pop());
         dealerScore = calculateScore(dealerHand);
+        showCards();
     }
     dealerScoreDisplay.textContent = dealerScore;
 
@@ -170,3 +205,4 @@ document.getElementById('deal').addEventListener('click', deal);
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
 document.getElementById('reset').addEventListener('click', reset);
+document.addEventListener('DOMContentLoaded', initGame);
