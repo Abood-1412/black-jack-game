@@ -37,6 +37,3 @@ This project demonstrates how to build a simple Blackjack game using HTML, CSS, 
 
 You can enhance the game by adding features such as betting, multiple decks, or animations.
 
-## Technologies Used
-
-HTML, CSS, JavaScript.
