@@ -37,6 +37,6 @@ This project demonstrates how to build a simple Blackjack game using HTML, CSS, 
 
 You can enhance the game by adding features such as betting, multiple decks, or animations.
 
-## License
+## Technologies Used
 
-This project is open source and free to use for learning purposes.
+HTML, CSS, JavaScript.
